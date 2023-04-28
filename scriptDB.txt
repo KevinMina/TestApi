@@ -1,0 +1,51 @@
+/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2017                    */
+/* Created on:     27/4/2023 18:33:43                           */
+/*==============================================================*/
+
+create database ;
+
+/*==============================================================*/
+/* Table: PRODUCTOS                                             */
+/*==============================================================*/
+create table PRODUCTOS (
+   ID_PROD              int                  not null,
+   NOMBRE_PROD          char(256)            null,
+   PRECIO_PROD          money                null,
+   ESTADO_PROD          bit                  null,
+   constraint PK_PRODUCTOS primary key (ID_PROD)
+)
+go
+
+/*==============================================================*/
+/* Table: USUARIO                                               */
+/*==============================================================*/
+create table USUARIO (
+   ID_USER              int                  not null,
+   NOMBRE_USER          char(100)            not null,
+   ESTADO_USER          bit                  not null,
+   constraint PK_USUARIO primary key (ID_USER)
+)
+go
+
+/*==============================================================*/
+/* Table: VENTAS_DETALLE                                        */
+/*==============================================================*/
+create table VENTAS_DETALLE (
+   ID_VENT              int                  not null,
+   ID_USER              int                  null,
+   ID_PROD              int                  null,
+   constraint PK_VENTAS_DETALLE primary key (ID_VENT)
+)
+go
+
+alter table VENTAS_DETALLE
+   add constraint FK_VENTAS_D_RELATIONS_USUARIO foreign key (ID_USER)
+      references USUARIO (ID_USER)
+go
+
+alter table VENTAS_DETALLE
+   add constraint FK_VENTAS_D_RELATIONS_PRODUCTO foreign key (ID_PROD)
+      references PRODUCTOS (ID_PROD)
+go
+
